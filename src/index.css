@@ -7,8 +7,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 h1:hover, h2:hover, li:hover{
-      animation: rainbow 2.5s linear;
-      animation-iteration-count: infinite;
+      animation: rainbow 2.5s linear infinite !important;
 }
 @keyframes rainbow{
 		100%,0%{

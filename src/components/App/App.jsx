@@ -1,7 +1,6 @@
 import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 import Header from './Header';
-import { useEffect, useState } from 'react';
-import axios from 'axios';
+import { useEffect } from 'react';
 import BookList from '../BookList/BookList';
 import BookForm from '../BookForm/BookForm';
 import BookDetailsWithParams from '../BookDetails/BookDetailsWithParams';
@@ -11,21 +10,9 @@ import './App.css';
 function App() {
   // const [bookList, setBookList] = useState([]);
   const dispatch = useDispatch();
-
-  const fetchBooks = async () => {
-    dispatch({ type: 'START_LOADING' });
-    const books = (await axios.get('/books')).data;
-    // setBookList(books);
-    // dispatch our `books` to redux!
-    dispatch({ type: 'DONE_LOADING' });
-    dispatch({
-      type: 'SET_BOOKS',
-      payload: books,
-    })
-  }
   
   useEffect(() => {
-    fetchBooks();
+    dispatch({ type: 'FETCH_BOOKS' })
   }, []);
 
   return (
@@ -34,10 +21,10 @@ function App() {
         <Header />
         <Switch>
           <Route exact path="/">
-            <BookList fetchBooks={fetchBooks} />
+            <BookList />
           </Route>
           <Route path="/newbook">
-            <BookForm fetchBooks={fetchBooks}/>
+            <BookForm />
           </Route>
           <Route path="/details/:id">
             <BookDetailsWithParams />
